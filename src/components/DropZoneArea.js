@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import useFiles from '../hooks/useFiles';
 
 const BorderedBox = styled.div`
-  padding: 0.5rem;
   width: 100%;
   height: 6rem;
   cursor: pointer;
