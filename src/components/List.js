@@ -11,10 +11,6 @@ import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
-import Collapse from '@mui/material/Collapse';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Box, IconButton } from '@mui/material';
 
 const Container = styled.div`
   margin-top: 1rem;
@@ -23,7 +19,6 @@ function List() {
   const files = useFiles();
   const [checked, setChecked] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [openedRow, setOpenedRow] = useState(null);
 
   useEffect(() => {
     async function test() {
@@ -60,7 +55,6 @@ function List() {
                 <TableCell size={'medium'}>Template Name</TableCell>
                 <TableCell>Explain</TableCell>
                 <TableCell>Context</TableCell>
-                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -68,56 +62,23 @@ function List() {
                 const error = file.error?.properties?.errors?.[0]?.properties;
 
                 return (
-                  <>
-                    <TableRow
-                      key={file.path}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell align={'center'}>
-                        {file.error ? (
-                          <ReportRoundedIcon style={{ fill: 'red' }} />
-                        ) : (
-                          <CheckCircleIcon style={{ fill: 'green' }} />
-                        )}
-                      </TableCell>
+                  <TableRow
+                    key={file.path}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align={'center'} title={JSON.stringify(error)}>
+                      {file.error ? (
+                        <ReportRoundedIcon style={{ fill: 'red' }} />
+                      ) : (
+                        <CheckCircleIcon style={{ fill: 'green' }} />
+                      )}
+                    </TableCell>
 
-                      <TableCell size={'medium'}>{file.path}</TableCell>
+                    <TableCell size={'medium'}>{file.path}</TableCell>
 
-                      <TableCell>{error?.explanation}</TableCell>
-                      <TableCell>{error?.context}</TableCell>
-                      <TableCell>
-                        {!!file.error && (
-                          <IconButton
-                            aria-label="expand row"
-                            size="small"
-                            onClick={() =>
-                              setOpenedRow((prev) => (prev === i ? null : i))
-                            }
-                          >
-                            {openedRow === i ? (
-                              <KeyboardArrowUpIcon />
-                            ) : (
-                              <KeyboardArrowDownIcon />
-                            )}
-                          </IconButton>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell
-                        style={{ paddingBottom: 0, paddingTop: 0 }}
-                        colSpan={5}
-                      >
-                        <Collapse
-                          in={openedRow === i}
-                          timeout="auto"
-                          unmountOnExit
-                        >
-                          <Box padding={5}>{JSON.stringify(error)}</Box>
-                        </Collapse>
-                      </TableCell>
-                    </TableRow>
-                  </>
+                    <TableCell>{error?.explanation}</TableCell>
+                    <TableCell>{error?.context}</TableCell>
+                  </TableRow>
                 );
               })}
             </TableBody>
