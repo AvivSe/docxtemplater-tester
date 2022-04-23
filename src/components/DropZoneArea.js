@@ -42,7 +42,7 @@ function DropZoneArea() {
   });
 
   return (
-    <BorderedBox {...getRootProps()}>
+    <BorderedBox {...getRootProps()} isDragActive={isDragActive}>
       <input {...getInputProps()} />
       {isDragActive
         ? 'Drop templates here'

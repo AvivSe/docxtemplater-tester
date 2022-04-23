@@ -58,7 +58,7 @@ function List() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {checked.map((file, i) => {
+              {checked.map((file) => {
                 const error = file.error?.properties?.errors?.[0]?.properties;
 
                 return (
