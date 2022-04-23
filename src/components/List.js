@@ -48,10 +48,10 @@ function List() {
     <Container>
       {!!checked.length && (
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table>
             <TableHead>
               <TableRow>
-                <TableCell></TableCell>
+                <TableCell sx={{ width: 10 }} size={'small'}></TableCell>
                 <TableCell size={'medium'}>Template Name</TableCell>
                 <TableCell>Explain</TableCell>
                 <TableCell>Context</TableCell>

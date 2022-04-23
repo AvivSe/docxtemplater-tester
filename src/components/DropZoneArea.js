@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import useFiles from '../hooks/useFiles';
 
@@ -30,8 +30,9 @@ function DropZoneArea() {
   const files = useFiles();
 
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles, fileRejections) => {
       files.set(acceptedFiles);
+      files.setRejectedFiles(fileRejections);
     },
     [files]
   );
