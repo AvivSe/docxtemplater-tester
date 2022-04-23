@@ -13,77 +13,63 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 
 const Container = styled.div`
-  margin-top: 1rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Wrapper = styled.div`
+  width: 80vw;
+  @media (max-width: 1440px) {
+    width: 95vw;
+  }
 `;
 function List() {
   const files = useFiles();
-  const [checked, setChecked] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function test() {
-      await Promise.all(
-        files.list.map(async (file) => {
-          try {
-            setLoading(true);
-            await testTemplate(file);
-            file.error = undefined;
-          } catch (e) {
-            file.error = e;
-          } finally {
-            setLoading(false);
-          }
-        })
-      );
-      setChecked(files.list);
-    }
-    test();
-  }, [files.list]);
-
-  if (loading) {
-    return 'Loading...';
-  }
 
   return (
     <Container>
-      {!!checked.length && (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ width: 10 }} size={'small'}></TableCell>
-                <TableCell size={'medium'}>Template Name</TableCell>
-                <TableCell>Explain</TableCell>
-                <TableCell>Context</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {checked.map((file) => {
-                const error = file.error?.properties?.errors?.[0]?.properties;
+      {!!files.tested.length && (
+        <Wrapper>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ width: 10 }} size={'small'}></TableCell>
+                  <TableCell size={'medium'}>Template Name</TableCell>
+                  <TableCell>Explain</TableCell>
+                  <TableCell>Context</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {files.tested.map((file) => {
+                  const error = file.error?.properties?.errors?.[0]?.properties;
 
-                return (
-                  <TableRow
-                    key={file.path}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell align={'center'} title={JSON.stringify(error)}>
-                      {file.error ? (
-                        <ReportRoundedIcon style={{ fill: 'red' }} />
-                      ) : (
-                        <CheckCircleIcon style={{ fill: 'green' }} />
-                      )}
-                    </TableCell>
+                  return (
+                    <TableRow
+                      key={file.path}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell align={'center'} title={JSON.stringify(error)}>
+                        {file.error ? (
+                          <ReportRoundedIcon style={{ fill: 'red' }} />
+                        ) : (
+                          <CheckCircleIcon style={{ fill: 'green' }} />
+                        )}
+                      </TableCell>
 
-                    <TableCell size={'medium'}>{file.path}</TableCell>
+                      <TableCell size={'medium'}>{file.path}</TableCell>
 
-                    <TableCell>{error?.explanation}</TableCell>
-                    <TableCell>{error?.context}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                      <TableCell>{error?.explanation}</TableCell>
+                      <TableCell>{error?.context}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Wrapper>
       )}
     </Container>
   );

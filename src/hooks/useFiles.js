@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import { useTest } from './useTest';
 
 function _useFiles() {
   const [files, setFiles] = useState([]);
   const [rejectedFiles, setRejectedFiles] = useState([]);
+  const { tested, testing } = useTest({ files });
 
   return {
     set: setFiles,
     list: files,
     rejectedFiles,
     setRejectedFiles,
+    tested,
+    testing,
   };
 }
 const FilesContext = React.createContext(null);

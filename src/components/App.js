@@ -1,21 +1,26 @@
 import DropZoneArea from './DropZoneArea';
 import styled from 'styled-components';
-import { ProvideUseFiles } from '../hooks/useFiles';
 import List from './List';
 import RejectedFiles from './RejectedFiles';
+import LinearProgress from '@mui/material/LinearProgress';
+import useFiles from '../hooks/useFiles';
 
 const Container = styled.div`
-  width: 80vw;
+  width: 100%;
 `;
 
 function App() {
+  const { list, testing } = useFiles();
+
   return (
     <Container>
-      <ProvideUseFiles>
-        <DropZoneArea />
-        <List />
-        <RejectedFiles />
-      </ProvideUseFiles>
+      <DropZoneArea />
+      <LinearProgress
+        style={{ visibility: testing ? 'visible' : 'hidden' }}
+        color={'secondary'}
+      />
+      {!!list.length && <List />}
+      <RejectedFiles />
     </Container>
   );
 }

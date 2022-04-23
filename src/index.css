@@ -7,8 +7,4 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #fefeff;
   color: #262727;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 2rem;
 }

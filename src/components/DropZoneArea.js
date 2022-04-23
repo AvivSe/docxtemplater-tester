@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import useFiles from '../hooks/useFiles';
 
 const BorderedBox = styled.div`
   width: 100%;
-  height: 6rem;
+  height: ${({ initialState }) => (initialState ? '100vh' : '15vh')};
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -13,15 +13,12 @@ const BorderedBox = styled.div`
   justify-content: center;
 
   background-color: #f8f8f8;
-  border: 1px #b7b7b7 dashed;
   color: #b7b7b7;
 
   text-transform: uppercase;
   font-weight: bold;
 
   :hover {
-    background-color: #f6f6f6;
-    border: 1px #a181ff dashed;
     color: #989898;
   }
 `;
@@ -43,7 +40,7 @@ function DropZoneArea() {
   });
 
   return (
-    <BorderedBox {...getRootProps()} isDragActive={isDragActive}>
+    <BorderedBox {...getRootProps()} initialState={!files.list.length}>
       <input {...getInputProps()} />
       {isDragActive
         ? 'Drop templates here'
