@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/docxtemplater-tester/static/css/main.90dac8e6.css",
+    "main.js": "/docxtemplater-tester/static/js/main.518fcbe9.js",
+    "index.html": "/docxtemplater-tester/index.html",
+    "main.90dac8e6.css.map": "/docxtemplater-tester/static/css/main.90dac8e6.css.map",
+    "main.518fcbe9.js.map": "/docxtemplater-tester/static/js/main.518fcbe9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.90dac8e6.css",
+    "static/js/main.518fcbe9.js"
+  ]
+}
